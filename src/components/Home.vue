@@ -1,22 +1,22 @@
 <template>
   <div>
-    <v-countainer fluid>
+    <v-container fluid>
       <v-layout row>
         <v-flex xs12>
           <v-carousel>
             <v-carousel-item
-              v-for="(ad,i) in ads"
-              :key="ad.id"
-              :src="ad.src"
+              v-for="promo in promoAds"
+              :key="promo.id"
+              :src="promo.src"
             >
               <div class="car-link">
-                <v-btn class="error" :to="'/ad/' + ad.id">{{ ad.title}}</v-btn>
+                <v-btn class="error" :to="'/ad/' + promo.id">{{ promo.title }}</v-btn>
               </div>
             </v-carousel-item>
           </v-carousel>
         </v-flex>
       </v-layout>
-    </v-countainer>
+    </v-container>
     <v-container grid-list-lg>
       <v-layout row wrap>
         <v-flex
@@ -27,10 +27,10 @@
           :key="ad.id"
         >
           <v-card>
-            <v-img
+            <v-card-media
               :src="ad.src"
               height="200px"
-            ></v-img>
+            ></v-card-media>
 
             <v-card-title primary-title>
               <div>
@@ -53,39 +53,12 @@
 
 <script>
   export default {
-    name: 'Home',
-    data () {
-      return {
-        ads: [
-          {
-            id: '1',
-            title: 'First ad',
-            description: 'Hello i am description',
-            promo: false,
-            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
-          },
-          {
-            id: '2',
-            title: 'Second ad',
-            description: 'Hello i am description',
-            promo: false,
-            src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
-          },
-          {
-            id: '3',
-            title: 'Three ad',
-            description: 'Hello i am description',
-            promo: true,
-            src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg'
-          },
-          {
-            id: '4',
-            title: 'Four ad',
-            description: 'Hello i am description',
-            promo: true,
-            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'
-          }
-        ]
+    computed: {
+      promoAds () {
+        return this.$store.getters.promoAds
+      },
+      ads () {
+        return this.$store.getters.ads
       }
     }
   }
