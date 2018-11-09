@@ -58,7 +58,8 @@
             <v-btn
               class="success"
               @click="createAd"
-              :disabled="!valid"
+              :disabled="!valid || loading"
+              :loading="loading"
             >
               Create ad
               <v-icon right dark>done</v-icon>
@@ -84,6 +85,11 @@ export default {
       descriptionRules: [v => !!v || 'Description is required']
     }
   },
+  computed: {
+    loading () {
+      return this.$store.getters.loading
+    }
+  },
   methods: {
     onSumbit () {
       if (this.$refs.form.validate()) {
@@ -103,6 +109,10 @@ export default {
           src: 'https://cdn-images-1.medium.com/max/1600/0*oqRmtmP0uE87G44T.png'
         }
         this.$store.dispatch('createAd', ad)
+          .then(() => {
+            this.$router.push('/list')
+          })
+          .catch(() => {})
       }
     }
   }
