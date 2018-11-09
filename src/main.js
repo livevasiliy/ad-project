@@ -1,12 +1,10 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store'
 import Vuetify from 'vuetify'
 import * as fb from 'firebase'
 import 'vuetify/dist/vuetify.min.css'
-import store from './store'
 
 Vue.use(Vuetify)
 
@@ -20,7 +18,6 @@ new Vue({
   components: { App },
   template: '<App/>',
   created () {
-    // Initialize Firebase
     fb.initializeApp({
       apiKey: 'AIzaSyBZrsPYvGIdIFM2Fb3680RL7Nn5UXvD0QA',
       authDomain: 'ad-vue.firebaseapp.com',
@@ -29,11 +26,13 @@ new Vue({
       storageBucket: 'ad-vue.appspot.com',
       messagingSenderId: '527122088432'
     })
+
     fb.auth().onAuthStateChanged(user => {
       if (user) {
         this.$store.dispatch('autoLoginUser', user)
       }
     })
+
     this.$store.dispatch('fetchAds')
   }
 })

@@ -12,16 +12,14 @@
           <v-layout row>
             <v-flex xs4>
               <v-card-media
-                :src="ad.src"
+                :src="ad.imageSrc"
                 height="160px"
-              >
-
-              </v-card-media>
+              ></v-card-media>
             </v-flex>
             <v-flex xs8>
               <v-card-text>
-                <h2 class="text--primary">{{ ad.title }}</h2>
-                <p>{{ ad.description }}</p>
+                <h2 class="text--primary">{{ad.title}}</h2>
+                <p>{{ad.description}}</p>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -33,7 +31,6 @@
             </v-flex>
           </v-layout>
         </v-card>
-
       </v-flex>
     </v-layout>
   </v-container>
@@ -41,7 +38,6 @@
 
 <script>
   export default {
-    name: 'AdList',
     computed: {
       myAds () {
         return this.$store.getters.myAds
@@ -49,7 +45,3 @@
     }
   }
 </script>
-
-<style scoped>
-
-</style>
