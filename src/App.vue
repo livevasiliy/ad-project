@@ -32,7 +32,28 @@
       </v-toolbar-items>
     </v-toolbar>
 
-    <v-content> <router-view></router-view> </v-content>
+    <v-content>
+      <router-view></router-view>
+    </v-content>
+
+    <template v-if="error">
+      <v-snackbar
+        :multi-line="true"
+        :timeout="5000"
+        color="error"
+        @input="closeError"
+        :value="true"
+      >
+        {{ error }}
+        <v-btn
+          dark
+          flat
+          @click.native="closeError"
+        >
+          Close
+        </v-btn>
+      </v-snackbar>
+    </template>
   </v-app>
 </template>
 
@@ -68,6 +89,16 @@ export default {
           url: '/list'
         }
       ]
+    }
+  },
+  computed: {
+    error () {
+      return this.$store.getters.error
+    }
+  },
+  methods: {
+    closeError () {
+      this.$store.dispatch('clearError')
     }
   }
 }
