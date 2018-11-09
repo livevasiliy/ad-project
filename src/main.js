@@ -20,12 +20,14 @@ new Vue({
   components: { App },
   template: '<App/>',
   created () {
-    const config = {
-      /***
-       * Your Firebase config data
-       */
-    }
     // Initialize Firebase
-    Firebase.initializeApp(config)
+    Firebase.initializeApp({
+      apiKey: 'AIzaSyBZrsPYvGIdIFM2Fb3680RL7Nn5UXvD0QA',
+      authDomain: 'ad-vue.firebaseapp.com',
+      databaseURL: 'https://ad-vue.firebaseio.com',
+      projectId: 'ad-vue',
+      storageBucket: 'ad-vue.appspot.com',
+      messagingSenderId: '527122088432'
+    })
   }
 })

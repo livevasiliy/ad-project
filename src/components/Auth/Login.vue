@@ -30,7 +30,13 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="onSumbit" :disabled="!valid">Login</v-btn>
+            <v-btn
+              color="primary"
+              @click="onSumbit"
+              :disabled="!valid || loading"
+              :loading="loading"
+              >Login</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -52,8 +58,15 @@ export default {
       ],
       passwordRules: [
         v => !!v || 'Password is required',
-        v => (v && v.length >= 6) || 'Password must be equal or more than 6 characters'
+        v =>
+          (v && v.length >= 6) ||
+          'Password must be equal or more than 6 characters'
       ]
+    }
+  },
+  computed: {
+    loading () {
+      return this.$store.getters.loading
     }
   },
   methods: {
@@ -63,7 +76,11 @@ export default {
           email: this.email,
           password: this.password
         }
-        console.log(user)
+        this.$store.dispatch('loginUser', user)
+          .then(() => {
+            this.$router.push('/')
+          })
+          .catch(error => console.log(error))
       }
     }
   }

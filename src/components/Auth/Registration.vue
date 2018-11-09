@@ -40,7 +40,13 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="onSumbit" :disabled="!valid">Create account</v-btn>
+            <v-btn
+              color="primary"
+              @click="onSumbit"
+              :disabled="!valid || loading"
+              :loading="loading"
+              >Create account</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -49,40 +55,51 @@
 </template>
 
 <script>
-  export default {
-    name: 'Registration',
-    data () {
-      return {
-        email: '',
-        password: '',
-        confirmPassword: '',
-        valid: false,
-        emailRules: [
-          v => !!v || 'E-mail is required',
-          v => /.+@.+/.test(v) || 'E-mail must be valid'
-        ],
-        passwordRules: [
-          v => !!v || 'Password is required',
-          v => (v && v.length >= 6) || 'Password must be equal or more than 6 characters'
-        ],
-        confirmPasswordRules: [
-          v => !!v || 'Password is required',
-          v => v === this.password || 'Passwords should match'
-        ]
-      }
-    },
-    methods: {
-      onSumbit () {
-        if (this.$refs.form.validate()) {
-          const user = {
-            email: this.email,
-            password: this.password
-          }
-          console.log(user)
+export default {
+  name: 'Registration',
+  data () {
+    return {
+      email: '',
+      password: '',
+      confirmPassword: '',
+      valid: false,
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+/.test(v) || 'E-mail must be valid'
+      ],
+      passwordRules: [
+        v => !!v || 'Password is required',
+        v =>
+          (v && v.length >= 6) ||
+          'Password must be equal or more than 6 characters'
+      ],
+      confirmPasswordRules: [
+        v => !!v || 'Password is required',
+        v => v === this.password || 'Passwords should match'
+      ]
+    }
+  },
+  computed: {
+    loading () {
+      return this.$store.getters.loading
+    }
+  },
+  methods: {
+    onSumbit () {
+      if (this.$refs.form.validate()) {
+        const user = {
+          email: this.email,
+          password: this.password
         }
+        this.$store.dispatch('registerUser', user)
+          .then(() => {
+            this.$router.push('/')
+          })
+          .catch(error => console.log(error))
       }
     }
   }
+}
 </script>
 
 <style scoped></style>
