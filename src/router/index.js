@@ -45,7 +45,8 @@ export default new Router({
     {
       path: '/ad/:id',
       name: 'ad',
-      component: Ad
+      component: Ad,
+      props: true
     }
   ],
   mode: 'history'
