@@ -1,5 +1,5 @@
 <template>
-    <v-dialog width="400px" v-modal="modal">
+    <v-dialog width="400px" v-model="modal">
       <v-btn class="warning" flat slot="activator">Edit</v-btn>
       <v-card>
         <v-container>
@@ -47,7 +47,6 @@
 
 <script>
     export default {
-      name: 'EditAdModal',
       props: ['ad'],
       data () {
         return {
