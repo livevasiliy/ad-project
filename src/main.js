@@ -3,11 +3,12 @@ import App from './App'
 import router from './router'
 import store from './store'
 import Vuetify from 'vuetify'
+import BuyModalComponent from '@/components/Shared/BuyModal'
 import * as fb from 'firebase'
 import 'vuetify/dist/vuetify.min.css'
 
 Vue.use(Vuetify)
-
+Vue.component('app-buy-modal', BuyModalComponent)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
@@ -19,12 +20,12 @@ new Vue({
   template: '<App/>',
   created () {
     fb.initializeApp({
-      apiKey: 'AIzaSyBZrsPYvGIdIFM2Fb3680RL7Nn5UXvD0QA',
-      authDomain: 'ad-vue.firebaseapp.com',
-      databaseURL: 'https://ad-vue.firebaseio.com',
-      projectId: 'ad-vue',
-      storageBucket: 'ad-vue.appspot.com',
-      messagingSenderId: '527122088432'
+      apiKey: 'AIzaSyD5mgcTCPSiTxPfmTmBmPFWZU7GdR9l1BQ',
+      authDomain: 'itc-ads.firebaseapp.com',
+      databaseURL: 'https://itc-ads.firebaseio.com',
+      projectId: 'itc-ads',
+      storageBucket: 'itc-ads.appspot.com',
+      messagingSenderId: '145551978680'
     })
 
     fb.auth().onAuthStateChanged(user => {
